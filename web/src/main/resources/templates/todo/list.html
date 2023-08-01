@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="todo/head :: head_fragment(title = 'TODO一覧', scripts = ~{::script}, links = ~{::link})"></head>
+
+<body>
+  <div class="container">
+    <h1>TODO リスト</h1>
+    <div class="float-end">
+      <a th:href="@{/todo/add}" class="btn btn-primary">新規登録</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>更新日時</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="todo : ${todolist}" th:object="${todo}" class="align-middle">
+          <td th:text="*{title}"></td>
+          <td th:text="${#dates.format(todo.updateDate, 'yyyy/MM/dd')}"></td>
+          <td><a th:href="@{/todo/{id}(id=*{id})}" class="btn btn-secondary">詳細</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

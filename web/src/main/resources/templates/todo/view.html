@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="todo/head :: head_fragment(title = 'TODO詳細', scripts = ~{::script}, links = ~{::link})"></head>
+
+<body>
+    <div class="container">
+        <h1>TODO詳細</h1>
+        <div th:object="${tododata}">
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">ID</div>
+                <div class="col pt-3 border">
+                    <p th:text="*{id}"></p>
+                </div>
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">タイトル</div>
+                <div class="col pt-3 border">
+                    <p th:text="*{title}"></p>
+                </div>
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">本文</div>
+                <div class="col pt-3 border">
+                    <p th:text="*{detail}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-md-n5">
+            <div class="col-2 pt-3 border bg-light">作成日時</div>
+            <div class="col pt-3 border">
+                <p th:text="${#dates.format(tododata.updateDate, 'yyyy/MM/dd')}"></p>
+            </div>
+        </div>
+        <div class="row mx-md-n5">
+            <div class="col-2 pt-3 border bg-light">更新日時</div>
+            <div class="col pt-3 border">
+                <p th:text="${#dates.format(tododata.createDate, 'yyyy/MM/dd')}"></p>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="text-center">
+        <a th:href="@{/todo/{id}/edit(id=*{id})}" class="btn btn-primary" aria-disabled="true">　編集　</a>
+        <a th:href="@{/todo/{id}/delete(id=*{id})}" class="btn btn-secondary" aria-disabled="true">　削除　</a>
+        <a href="/todo/list" class="btn btn-secondary">一覧に戻る</a>
+    </div>
+    </div>
+</body>
+
+</html>
